@@ -1,0 +1,66 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@* If the user is logged in, show the enter new news form. *@
+@if (Model.UserName != "")
+{
+    <div>
+        <div class="container col-lg-6 newsblock">
+            <form action="PostNews" method="POST">
+                @Html.AntiForgeryToken()
+                <h5>What's new?</h5>
+                <div class="row">
+                    <div class="col-2">
+                        Headline:
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" name="headline" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        News Text:<br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <textarea id="newstext" name="newstext" rows="6" cols="50"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Send in News" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@* Loops through all news and show them on the page. *@
+<div>
+    @foreach (News n in Model.NewsList)
+    {
+        <div class="container col-lg-6 newsblock">
+            <div class="row newsheader">
+                @n.Header
+            </div>
+            <div class="row newstext">
+                @n.NewsText
+            </div>
+            <div class="row">
+                <div class="col newsposter">
+                    @n.Poster
+                </div>
+                <div class="col newsposted">
+                    @n.Posted
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,21 @@
+﻿@page
+@model PostNewsModel
+@{
+    Layout = null;
+
+    string headline = "", newstext = "";
+    if (ViewContext.HttpContext.Request.Method == "POST")
+    {
+        headline = Request.Form["headline"];
+        newstext = Request.Form["newstext"];
+    }
+    if (ViewContext.HttpContext.Request.Method == "GET")
+    {
+        headline = Request.Query["headline"];
+        newstext = Request.Query["newstext"];
+    }
+}
+@ViewData["myTest"]
+@headline
+<br />
+@newstext
